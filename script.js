@@ -549,20 +549,85 @@ function isPastParticiple(word) {
 // --- END: New isPastParticiple function ---
 
 async function getWordTranslation(word, targetLang = 'ko') {
-  const cleanedWord = word.replace(/[^a-zA-Z0-9]/g, "").toLowerCase().trim();
+  const cleanedWord = word.replace(/[^a-zA-Z0-9']/g, "").toLowerCase().trim();
   if (!cleanedWord) return "Error: Invalid word";
 
-  await new Promise(resolve => setTimeout(resolve, 50 + Math.random() * 100));
-
   const mockTranslations = {
-    "what": "무엇", "will": "～할 것이다", "we": "우리", "build": "짓다", "with": "～으로", "these": "이것들", "big": "큰", "boxes": "상자들", "make": "만들다", "a": "하나의", "spaceship": "우주선", "for": "～을 위한", "our": "우리의", "trip": "여행", "when": "언제", "they": "그들", "come": "오다", "to": "～으로", "the": "그", "backyard": "뒷마당", "party": "파티", "i": "나", "wear": "입다", "it": "그것", "because": "왜냐하면", "fight": "싸우다", "monsters": "괴물들", "right": "바로", "after": "～후에", "their": "그들의", "nap": "낮잠", "time": "시간", "where": "어디에", "you": "너", "hide": "숨기다", "birthday": "생일", "surprise": "깜짝 선물", "gift": "선물", "under": "～아래에", "green": "초록색", "slide": "미끄럼틀", "who": "누가", "bring": "가져오다", "cake": "케이크", "picnic": "소풍", "today": "오늘", "my": "나의", "mom": "엄마", "in": "～안에", "her": "그녀의", "blue": "파란", "basket": "바구니", "how": "어떻게", "catch": "잡다", "tiny": "아주 작은", "rainbow": "무지개", "butterfly": "나비", "net": "그물", "and": "그리고", "be": "이다", "very": "매우", "gentle": "부드러운", "wont": "～하지 않을 것이다", "share": "공유하다", "from": "～로부터", "your": "너의", "lunchbox": "점심 도시락", "jelly": "젤리", "special": "특별한", "why": "왜", "sister": "자매/언니/누나", "play": "놀다", "tag": "술래잡기", "us": "우리", "she": "그녀", "feels": "느끼다", "too": "너무", "sleepy": "졸린", "have": "가지다", "clean": "청소하다", "playroom": "놀이방", "if": "만약", "already": "이미", "tidy": "단정한", "allowed": "허용된", "snacks": "간식", "library": "도서관", "room": "방", "tomorrow": "내일", "zoo": "동물원", "grandpa": "할아버지", "his": "그의", "knee": "무릎", "toy": "장난감", "car": "자동차", "break": "고장나다", "again": "다시", "soon": "곧", "dont": "～하지 않다", "crash": "충돌하다", "hard": "세게", "would": "～일 것이다 (가정)", "do": "하다", "flying": "나는", "carpet": "양탄자", "fly": "날다", "grandmas": "할머니의", "house": "집", "cookies": "쿠키", "he": "그", "cry": "울다", "watching": "보는 중", "movie": "영화", "puppy": "강아지", "got": "되었다", "lost": "잃어버린", "visit": "방문하다", "underwater": "물속의", "castle": "성", "during": "～동안", "summer": "여름", "dream": "꿈", "had": "가졌었다", "fairy": "요정", "wings": "날개", "island": "섬", "sky": "하늘", "talk": "말하다", "forest": "숲", "elf": "요정", "whisper": "속삭이다", "use": "사용하다", "magic": "마법", "ring": "반지", "kite": "연", "stuck": "걸린", "dad": "아빠", "help": "돕다", "long": "긴", "stick": "막대기", "wouldnt": "～하지 않을 것이다 (가정)", "eat": "먹다", "even": "심지어", "hungry": "배고픈", "broccoli": "브로콜리", "ice": "얼음", "cream": "크림", "yucky": "역겨운", "teddy": "테디베어", "bear": "곰", "tea": "차", "outside": "밖에", "together": "함께", "started": "시작했다", "thunderstorming": "뇌우가 치는", "secret": "비밀", "treasure": "보물", "box": "상자", "bathroom": "욕실", "wet": "젖은", "snowman": "눈사람", "melt": "녹다", "quickly": "빨리", "built": "지었다", "shade": "그늘", "laugh": "웃다", "funny": "웃기는", "dance": "춤", "moves": "동작", "teacher": "선생님", "stop": "멈추다", "laughing": "웃는 중", "can": "～할 수 있다", "shiny": "빛나는", "rock": "돌", "stone": "돌", "cannot": "～할 수 없다", "now": "지금", "raining": "비가 오는", "mommy": "엄마", "said": "말했다", "muddy": "진흙탕이라고 하셨어요.", "see": "보다", "new": "새로운", "over": "～너머로", "lunch": "점심", "space": "우주", "aliens": "외계인", "behind": "～뒤에", "tree": "나무", "fix": "고치다", "robot": "로봇", "dinner": "저녁", "jump": "뛰다", "so": "그렇게", "high": "높이", "like": "～처럼", "that": "저것", "practiced": "연습했다", "every": "매", "day": "날", "trampoline": "트램펄린", "cant": "～할 수 없다", "before": "～전에", "open": "열다", "jar": "단지", "locked": "잠긴", "tight": "단단히", "kitchen": "부엌", "cooking": "요리하는 중", "crumbs": "부스러기", "couch": "소파", "keep": "유지하다", "secrets": "비밀들", "longer": "더 오래", "than": "～보다", "hours": "시간들", "hear": "듣다", "crunch": "바삭거리는 소리", "cartoons": "만화", "playing": "재생 중", "loudly": "시끄럽게", "could": "～할 수 있었다", "find": "찾다", "there": "거기에", "hiding": "숨는 중", "scared": "무서워하는", "of": "～의", "vacuum": "진공청소기", "cleaner": "청소기", "noise": "소음", "looking": "찾는 중", "him": "그를", "snack": "간식", "gone": "사라진", "last": "지난", "night": "밤", "rolled": "굴러갔다", "chest": "상자", "taken": "가져간", "garden": "정원", "while": "～하는 동안", "safely": "안전하게", "carry": "나르다", "superhero": "슈퍼히어로", "backpack": "배낭", "couldnt": "～할 수 없었다", "paper": "종이", "show": "보여주다", "puppet": "인형", "missing": "사라진", "race": "경주", "thunder": "천둥", "loud": "시끄러운", "lemonade": "레모네이드", "stand": "가판대", "dripping": "물이 떨어지는", "caught": "걸렸다", "cold": "감기", "socks": "양말", "getting": "되는 중", "dry": "마른", "without": "～없이", "rain": "비", "boots": "장화"
+    "what": "무엇", "will": "～할 것이다", "we": "우리", "build": "짓다", "with": "～으로", 
+    "these": "이것들", "big": "큰", "boxes": "상자들", "make": "만들다", "a": "하나의", 
+    "spaceship": "우주선", "for": "～을 위한", "our": "우리의", "trip": "여행", "when": "언제",
+    "they": "그들", "come": "오다", "to": "～으로", "the": "그", "backyard": "뒷마당", 
+    "party": "파티", "i": "나", "wear": "입다", "it": "그것", "because": "왜냐하면", 
+    "fight": "싸우다", "monsters": "괴물들", "right": "바로", "after": "～후에", 
+    "their": "그들의", "nap": "낮잠", "time": "시간", "where": "어디에", "you": "너/당신",
+    "hide": "숨기다", "birthday": "생일", "surprise": "깜짝 선물", "gift": "선물", 
+    "under": "～아래에", "green": "초록색", "slide": "미끄럼틀", "who": "누가", 
+    "bring": "가져오다", "cake": "케이크", "picnic": "소풍", "today": "오늘", "my": "나의", 
+    "mom": "엄마", "in": "～안에", "her": "그녀의", "blue": "파란", "basket": "바구니", 
+    "how": "어떻게", "catch": "잡다", "tiny": "아주 작은", "rainbow": "무지개", 
+    "butterfly": "나비", "net": "그물", "and": "그리고", "be": "이다/되다", 
+    "very": "매우", "gentle": "부드러운", 
+    "won’t": "～하지 않을 것이다", "wont": "～하지 않을 것이다", "share": "공유하다", "from": "～로부터", "your": "너의/당신의",
+    "lunchbox": "점심 도시락", "jelly": "젤리", "special": "특별한", "why": "왜", 
+    "sister": "자매/언니/누나", "play": "놀다", "tag": "술래잡기", "us": "우리", 
+    "she": "그녀", "feels": "느끼다", "too": "너무", "sleepy": "졸린", "have": "가지다", 
+    "clean": "청소하다", "playroom": "놀이방", "if": "만약", "already": "이미", 
+    "tidy": "단정한", "allowed": "허용된", "snacks": "간식", "library": "도서관", 
+    "room": "방", "tomorrow": "내일", "zoo": "동물원", "grandpa": "할아버지", 
+    "his": "그의", "knee": "무릎", "toy": "장난감", "car": "자동차", "break": "고장나다/부수다", 
+    "again": "다시", "soon": "곧", "don’t": "～하지 않다", "dont": "～하지 않다", "crash": "충돌하다", 
+    "hard": "세게/어려운", "would": "～일 것이다 (가정)", "do": "하다", "flying": "나는", 
+    "carpet": "양탄자", "fly": "날다", "grandma’s": "할머니의", "grandmas": "할머니의", "house": "집", 
+    "cookies": "쿠키", "he": "그", "cry": "울다", "watching": "보는 중", "movie": "영화", 
+    "puppy": "강아지", "got": "얻었다/되었다", "lost": "잃어버린", "visit": "방문하다", 
+    "underwater": "물속의", "castle": "성", "during": "～동안", "summer": "여름", 
+    "dream": "꿈", "had": "가졌었다", "fairy": "요정", "wings": "날개", "island": "섬", 
+    "sky": "하늘", "talk": "말하다", "forest": "숲", "elf": "요정", "whisper": "속삭이다", 
+    "magic": "마법", "ring": "반지", "kite": "연", "stuck": "걸린/꼼짝 못하는", "dad": "아빠", 
+    "help": "돕다", "long": "긴", "stick": "막대기", "wouldn’t": "～하지 않을 것이다 (가정)", "wouldnt": "～하지 않을 것이다 (가정)",
+    "eat": "먹다", "even": "심지어", "hungry": "배고픈", "broccoli": "브로콜리", 
+    "ice": "얼음", "cream": "크림", "yucky": "역겨운", "teddy": "테디베어", "bear": "곰", 
+    "tea": "차", "outside": "밖에", "together": "함께", "started": "시작했다", 
+    "thunderstorming": "뇌우가 치는", "secret": "비밀", "treasure": "보물", "box": "상자", 
+    "bathroom": "욕실", "wet": "젖은", "snowman": "눈사람", "melt": "녹다", 
+    "quickly": "빨리", "built": "지어진", "shade": "그늘", "laugh": "웃다", 
+    "funny": "웃기는", "dance": "춤", "moves": "동작", "teacher": "선생님", 
+    "stop": "멈추다", "laughing": "웃는 중", "can": "～할 수 있다", "shiny": "빛나는", 
+    "rock": "돌", "stone": "돌", "cannot": "～할 수 없다", "not": "아니다", 
+    "now": "지금", "raining": "비가 오는", "mommy": "엄마", "said": "말했다", 
+    "muddy": "진흙탕의", "see": "보다", "new": "새로운", "over": "～너머로/끝난", 
+    "lunch": "점심", "space": "우주/공간", "aliens": "외계인", "behind": "～뒤에", 
+    "tree": "나무", "fix": "고치다", "robot": "로봇", "dinner": "저녁", "jump": "뛰다", 
+    "so": "그렇게/매우", "high": "높이", "like": "～처럼/좋아하다", "that": "저것/그것", 
+    "practiced": "연습했다", "every": "매", "day": "날", "trampoline": "트램펄린", 
+    "can’t": "～할 수 없다", "cant": "～할 수 없다", "before": "～전에", "open": "열다", "jar": "병/단지", 
+    "locked": "잠긴", "tight": "단단히", "kitchen": "부엌", "cooking": "요리하는 중", 
+    "crumbs": "부스러기", "couch": "소파", "keep": "유지하다/계속하다", "secrets": "비밀들", 
+    "longer": "더 오래", "than": "～보다", "hours": "시간들", "hear": "듣다", 
+    "crunch": "바삭거리는 소리", "cartoons": "만화", "playing": "재생 중/놀고있는", 
+    "loudly": "시끄럽게", "could": "～할 수 있었다", "find": "찾다", "there": "거기에", 
+    "hiding": "숨는 중", "scared": "무서워하는", "of": "～의", "vacuum": "진공청소기", 
+    "cleaner": "청소기", "noise": "소음", "looking": "찾는 중/보는 중", "him": "그를", 
+    "snack": "간식", "gone": "사라진/가버린", "last": "지난/마지막의", "night": "밤", 
+    "rolled": "굴러갔다", "chest": "상자", "taken": "가져간/차지된", "garden": "정원", 
+    "while": "～하는 동안", "safely": "안전하게", "carry": "나르다", "superhero": "슈퍼히어로", 
+    "backpack": "배낭", "couldn’t": "～할 수 없었다", "couldnt": "～할 수 없었다", "paper": "종이", "show": "보여주다/쇼", 
+    "puppet": "인형", "missing": "사라진/잃어버린", "race": "경주", "thunder": "천둥", 
+    "loud": "시끄러운", "lemonade": "레모네이드", "stand": "서다/가판대", 
+    "dripping": "물이 떨어지는", "caught": "잡힌/걸린", "cold": "추운/감기", 
+    "socks": "양말", "getting": "되는 중/얻는 중", "dry": "마른", "without": "～없이", 
+    "rain": "비", "boots": "장화", "on": "위에/계속",
+    "bringback": "데려오다", "setup": "설치하다", "it’s": "그것은 ~이다", "it's": "그것은 ~이다",
+    "doesn’t": "하지 않는다", "doesnt": "하지 않는다", "didn’t": "하지 않았다", "didnt": "하지 않았다",
+    "mom’s": "엄마의", "moms": "엄마의", "grandma's": "할머니의", "dad’s": "아빠의", "dads": "아빠의",
+    "won’t": "하지 않을 것이다", "can’t": "할 수 없다", "couldn’t": "할 수 없었다", "wouldn’t": "하지 않을 것이다"
   };
 
   if (mockTranslations[cleanedWord]) {
     return mockTranslations[cleanedWord];
   }
-  console.warn(`Translation not found for: ${cleanedWord}. Returning placeholder.`);
-  return `[${cleanedWord} 뜻]`;
+  console.warn(`[번역 누락] '${cleanedWord}'의 한글 뜻을 mockTranslations에 추가해주세요.`);
+  return `[${cleanedWord}]`;
 }
 
 let voicesPromise = null;
@@ -1335,7 +1400,7 @@ function drawCenterSentence() {
         if (activeWordTranslation.lineIndex === 0) { // 위쪽 줄 단어: 우상향 40도 ("//" 모양)
             translateX = wordCenterX;
             // Y 위치: 기존 verticalClearanceFirstLine (13) 에서 20px 아래로 이동 요청 반영
-            const verticalClearanceFirstLine = 13 - 20; // 즉, -7. 결과적으로 단어 윗면에서 (basePadding(8) + (-7)) = 1px 위.
+            const verticalClearanceFirstLine = 13 - 20; // 즉, -7. 결과적으로 단어 윗면에서 (basePadding(8) + (-7)) = 1px 위가 회전 중심 Y.
             translateY = englishWordMiddleY - englishWordHalfHeight - basePadding - verticalClearanceFirstLine; 
             
             angleRad = -angleDegrees * Math.PI / 180; // 우상향 (-40도)
@@ -1349,7 +1414,7 @@ function drawCenterSentence() {
 
             // Y 위치: 단어의 아랫면에서 간격을 두고 회전 기준점 설정 (사용자 요청 30px 위로 이동 반영)
             // verticalClearanceSecondLine (이전 30) 에서 30px 위로 -> 0
-            const verticalClearanceSecondLine = 20 + 10 - 30; 
+            const verticalClearanceSecondLine = 20 + 10 - 30; // 즉, 총 0px의 추가 간격 (basePadding만 남음)
             translateY = englishWordMiddleY + englishWordHalfHeight + basePadding + verticalClearanceSecondLine; 
             
             angleRad = -angleDegrees * Math.PI / 180; // 우상향과 동일한 각도 (-40도)로 회전
