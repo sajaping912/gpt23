@@ -552,76 +552,145 @@ async function getWordTranslation(word, targetLang = 'ko') {
   const cleanedWord = word.replace(/[^a-zA-Z0-9']/g, "").toLowerCase().trim();
   if (!cleanedWord) return "Error: Invalid word";
 
+  // =======================================================================
+  // START OF FULLY UPDATED mockTranslations
+  // =======================================================================
   const mockTranslations = {
-    "what": "무엇", "will": "～할 것이다", "we": "우리", "build": "짓다", "with": "～으로", 
-    "these": "이것들", "big": "큰", "boxes": "상자들", "make": "만들다", "a": "하나의", 
+    "what": "무엇", "will": "～할 것이다", "we": "우리", "build": "짓다", "with": "～으로",
+    "these": "이것들", "big": "큰", "boxes": "상자들", "make": "만들다", "a": "하나의",
     "spaceship": "우주선", "for": "～을 위한", "our": "우리의", "trip": "여행", "when": "언제",
-    "they": "그들", "come": "오다", "to": "～으로", "the": "그", "backyard": "뒷마당", 
-    "party": "파티", "i": "나", "wear": "입다", "it": "그것", "because": "왜냐하면", 
-    "fight": "싸우다", "monsters": "괴물들", "right": "바로", "after": "～후에", 
-    "their": "그들의", "nap": "낮잠", "time": "시간", "where": "어디에", "you": "너/당신",
-    "hide": "숨기다", "birthday": "생일", "surprise": "깜짝 선물", "gift": "선물", 
-    "under": "～아래에", "green": "초록색", "slide": "미끄럼틀", "who": "누가", 
-    "bring": "가져오다", "cake": "케이크", "picnic": "소풍", "today": "오늘", "my": "나의", 
-    "mom": "엄마", "in": "～안에", "her": "그녀의", "blue": "파란", "basket": "바구니", 
-    "how": "어떻게", "catch": "잡다", "tiny": "아주 작은", "rainbow": "무지개", 
-    "butterfly": "나비", "net": "그물", "and": "그리고", "be": "이다/되다", 
-    "very": "매우", "gentle": "부드러운", 
-    "won’t": "～하지 않을 것이다", "wont": "～하지 않을 것이다", "share": "공유하다", "from": "～로부터", "your": "너의/당신의",
-    "lunchbox": "점심 도시락", "jelly": "젤리", "special": "특별한", "why": "왜", 
-    "sister": "자매/언니/누나", "play": "놀다", "tag": "술래잡기", "us": "우리", 
-    "she": "그녀", "feels": "느끼다", "too": "너무", "sleepy": "졸린", "have": "가지다", 
-    "clean": "청소하다", "playroom": "놀이방", "if": "만약", "already": "이미", 
-    "tidy": "단정한", "allowed": "허용된", "snacks": "간식", "library": "도서관", 
-    "room": "방", "tomorrow": "내일", "zoo": "동물원", "grandpa": "할아버지", 
-    "his": "그의", "knee": "무릎", "toy": "장난감", "car": "자동차", "break": "고장나다/부수다", 
-    "again": "다시", "soon": "곧", "don’t": "～하지 않다", "dont": "～하지 않다", "crash": "충돌하다", 
-    "hard": "세게/어려운", "would": "～일 것이다 (가정)", "do": "하다", "flying": "나는", 
-    "carpet": "양탄자", "fly": "날다", "grandma’s": "할머니의", "grandmas": "할머니의", "house": "집", 
-    "cookies": "쿠키", "he": "그", "cry": "울다", "watching": "보는 중", "movie": "영화", 
-    "puppy": "강아지", "got": "얻었다/되었다", "lost": "잃어버린", "visit": "방문하다", 
-    "underwater": "물속의", "castle": "성", "during": "～동안", "summer": "여름", 
-    "dream": "꿈", "had": "가졌었다", "fairy": "요정", "wings": "날개", "island": "섬", 
-    "sky": "하늘", "talk": "말하다", "forest": "숲", "elf": "요정", "whisper": "속삭이다", 
-    "magic": "마법", "ring": "반지", "kite": "연", "stuck": "걸린/꼼짝 못하는", "dad": "아빠", 
-    "help": "돕다", "long": "긴", "stick": "막대기", "wouldn’t": "～하지 않을 것이다 (가정)", "wouldnt": "～하지 않을 것이다 (가정)",
-    "eat": "먹다", "even": "심지어", "hungry": "배고픈", "broccoli": "브로콜리", 
-    "ice": "얼음", "cream": "크림", "yucky": "역겨운", "teddy": "테디베어", "bear": "곰", 
-    "tea": "차", "outside": "밖에", "together": "함께", "started": "시작했다", 
-    "thunderstorming": "뇌우가 치는", "secret": "비밀", "treasure": "보물", "box": "상자", 
-    "bathroom": "욕실", "wet": "젖은", "snowman": "눈사람", "melt": "녹다", 
-    "quickly": "빨리", "built": "지어진", "shade": "그늘", "laugh": "웃다", 
-    "funny": "웃기는", "dance": "춤", "moves": "동작", "teacher": "선생님", 
-    "stop": "멈추다", "laughing": "웃는 중", "can": "～할 수 있다", "shiny": "빛나는", 
-    "rock": "돌", "stone": "돌", "cannot": "～할 수 없다", "not": "아니다", 
-    "now": "지금", "raining": "비가 오는", "mommy": "엄마", "said": "말했다", 
-    "muddy": "진흙탕의", "see": "보다", "new": "새로운", "over": "～너머로/끝난", 
-    "lunch": "점심", "space": "우주/공간", "aliens": "외계인", "behind": "～뒤에", 
-    "tree": "나무", "fix": "고치다", "robot": "로봇", "dinner": "저녁", "jump": "뛰다", 
-    "so": "그렇게/매우", "high": "높이", "like": "～처럼/좋아하다", "that": "저것/그것", 
-    "practiced": "연습했다", "every": "매", "day": "날", "trampoline": "트램펄린", 
-    "can’t": "～할 수 없다", "cant": "～할 수 없다", "before": "～전에", "open": "열다", "jar": "병/단지", 
-    "locked": "잠긴", "tight": "단단히", "kitchen": "부엌", "cooking": "요리하는 중", 
-    "crumbs": "부스러기", "couch": "소파", "keep": "유지하다/계속하다", "secrets": "비밀들", 
-    "longer": "더 오래", "than": "～보다", "hours": "시간들", "hear": "듣다", 
-    "crunch": "바삭거리는 소리", "cartoons": "만화", "playing": "재생 중/놀고있는", 
-    "loudly": "시끄럽게", "could": "～할 수 있었다", "find": "찾다", "there": "거기에", 
-    "hiding": "숨는 중", "scared": "무서워하는", "of": "～의", "vacuum": "진공청소기", 
-    "cleaner": "청소기", "noise": "소음", "looking": "찾는 중/보는 중", "him": "그를", 
-    "snack": "간식", "gone": "사라진/가버린", "last": "지난/마지막의", "night": "밤", 
-    "rolled": "굴러갔다", "chest": "상자", "taken": "가져간/차지된", "garden": "정원", 
-    "while": "～하는 동안", "safely": "안전하게", "carry": "나르다", "superhero": "슈퍼히어로", 
-    "backpack": "배낭", "couldn’t": "～할 수 없었다", "couldnt": "～할 수 없었다", "paper": "종이", "show": "보여주다/쇼", 
-    "puppet": "인형", "missing": "사라진/잃어버린", "race": "경주", "thunder": "천둥", 
-    "loud": "시끄러운", "lemonade": "레모네이드", "stand": "서다/가판대", 
-    "dripping": "물이 떨어지는", "caught": "잡힌/걸린", "cold": "추운/감기", 
-    "socks": "양말", "getting": "되는 중/얻는 중", "dry": "마른", "without": "～없이", 
-    "rain": "비", "boots": "장화", "on": "위에/계속",
-    "bringback": "데려오다", "setup": "설치하다", "it’s": "그것은 ~이다", "it's": "그것은 ~이다",
-    "doesn’t": "하지 않는다", "doesnt": "하지 않는다", "didn’t": "하지 않았다", "didnt": "하지 않았다",
-    "mom’s": "엄마의", "moms": "엄마의", "grandma's": "할머니의", "dad’s": "아빠의", "dads": "아빠의",
-    "won’t": "하지 않을 것이다", "can’t": "할 수 없다", "couldn’t": "할 수 없었다", "wouldn’t": "하지 않을 것이다"
+    "they": "그들", "come": "오다", "to": "～으로", "the": "그", "backyard": "뒷마당",
+    "party": "파티", "i": "나", "wear": "입다", "it": "그것", "because": "왜냐하면",
+    "fight": "싸우다", "monsters": "괴물들", "right": "바로/오른쪽",
+    "after": "～후에", "their": "그들의", "nap": "낮잠", "time": "시간", "where": "어디에", "you": "너/당신",
+    "hide": "숨기다", "birthday": "생일", "surprise": "깜짝 선물", "gift": "선물",
+    "under": "～아래에", "green": "초록색", "slide": "미끄럼틀", "who": "누가",
+    "bring": "가져오다", "cake": "케이크", "picnic": "소풍", "today": "오늘", "my": "나의",
+    "mom": "엄마", "in": "～안에", "her": "그녀의", "blue": "파란", "basket": "바구니",
+    "how": "어떻게", "catch": "잡다", "tiny": "아주 작은", "rainbow": "무지개",
+    "butterfly": "나비", "net": "그물", "and": "그리고", "be": "이다/되다",
+    "very": "매우", "gentle": "부드러운",
+    "won’t": "～하지 않을 것이다", "wont": "～하지 않을 것이다",
+    "share": "공유하다", "from": "～로부터", "your": "너의/당신의",
+    "lunchbox": "점심 도시락", "jelly": "젤리", "special": "특별한", "why": "왜",
+    "sister": "자매/언니/누나", "play": "놀다", "tag": "술래잡기", "us": "우리",
+    "she": "그녀", "feels": "느끼다", "too": "너무/또한",
+    "sleepy": "졸린", "have": "가지다/해야 한다",
+    "clean": "청소하다/깨끗한",
+    "playroom": "놀이방", "if": "만약", "already": "이미",
+    "tidy": "단정한/정돈하다",
+    "allowed": "허용된", "snacks": "간식", "library": "도서관",
+    "room": "방", "tomorrow": "내일", "zoo": "동물원", "grandpa": "할아버지",
+    "his": "그의", "knee": "무릎", "toy": "장난감", "car": "자동차", "break": "고장나다/부수다",
+    "again": "다시", "soon": "곧", "don’t": "～하지 않다", "dont": "～하지 않다",
+    "crash": "충돌하다", "hard": "세게/어려운", "would": "～일 것이다 (가정)", "do": "하다", "flying": "나는",
+    "carpet": "양탄자", "fly": "날다", "grandma’s": "할머니의", "grandmas": "할머니의",
+    "house": "집", "cookies": "쿠키들", "cookie": "쿠키", // "cookie" 추가
+    "he": "그", "cry": "울다", "watching": "보는 중", "movie": "영화",
+    "puppy": "강아지", "got": "얻었다/되었다", "lost": "잃어버린", "visit": "방문하다",
+    "underwater": "물속의", "castle": "성", "during": "～동안", "summer": "여름",
+    "dream": "꿈/꿈꾸다",
+    "had": "가졌었다/했었다",
+    "fairy": "요정", "wings": "날개", "island": "섬",
+    "sky": "하늘", "talk": "말하다", "forest": "숲", "elf": "요정", "whisper": "속삭이다",
+    "magic": "마법/마법의",
+    "ring": "반지/울리다",
+    "kite": "연", "stuck": "걸린/꼼짝 못하는", "dad": "아빠",
+    "help": "돕다", "long": "긴/오랫동안",
+    "stick": "막대기/붙이다",
+    "wouldn’t": "～하지 않을 것이다 (가정)", "wouldnt": "～하지 않을 것이다 (가정)",
+    "eat": "먹다", "even": "심지어", "hungry": "배고픈", "broccoli": "브로콜리",
+    "ice": "얼음", "cream": "크림", "yucky": "역겨운", "teddy": "테디베어", "bear": "곰/참다",
+    "tea": "차", "outside": "밖에", "together": "함께", "started": "시작했다", "start": "시작하다", // "start" 추가
+    "thunderstorming": "뇌우가 치는", "secret": "비밀/비밀의",
+    "treasure": "보물", "box": "상자",
+    "bathroom": "욕실", "wet": "젖은", "snowman": "눈사람", "melt": "녹다",
+    "quickly": "빨리", "built": "지어진/지었다",
+    "shade": "그늘", "laugh": "웃다",
+    "funny": "웃기는", "dance": "춤/춤추다",
+    "moves": "동작/움직이다",
+    "teacher": "선생님", "stop": "멈추다", "laughing": "웃는 중", "can": "～할 수 있다/깡통",
+    "shiny": "빛나는",
+    "rock": "돌/흔들다",
+    "stone": "돌", "cannot": "～할 수 없다", "not": "아니다",
+    "now": "지금", "raining": "비가 오는", "mommy": "엄마", "said": "말했다",
+    "muddy": "진흙탕의", "see": "보다", "new": "새로운", "over": "～너머로/끝난",
+    "lunch": "점심", "space": "우주/공간", "aliens": "외계인", "behind": "～뒤에",
+    "tree": "나무", "fix": "고치다", "robot": "로봇", "dinner": "저녁", "jump": "뛰다",
+    "so": "그렇게/매우", "high": "높이/높은",
+    "like": "～처럼/좋아하다", "that": "저것/그것/그 (접속사/지시형용사)",
+    "practiced": "연습했다", "every": "매", "day": "날", "trampoline": "트램펄린",
+    "can’t": "～할 수 없다", "cant": "～할 수 없다",
+    "before": "～전에", "open": "열다/열린",
+    "jar": "병/단지",
+    "locked": "잠긴", "tight": "단단히/꽉 끼는",
+    "kitchen": "부엌", "cooking": "요리하는 중",
+    "crumbs": "부스러기", "couch": "소파", "keep": "유지하다/계속하다", "secrets": "비밀들",
+    "longer": "더 오래", "than": "～보다", "hours": "시간들", "hear": "듣다",
+    "crunch": "바삭거리는 소리/바삭거리다",
+    "cartoons": "만화", "playing": "재생 중/놀고있는",
+    "loudly": "시끄럽게", "could": "～할 수 있었다", "find": "찾다", "there": "거기에/저기",
+    "hiding": "숨는 중", "scared": "무서워하는", "of": "～의", "vacuum": "진공청소기",
+    "cleaner": "청소기/더 깨끗한",
+    "noise": "소음", "looking": "찾는 중/보는 중", "him": "그를",
+    "snack": "간식", "afternoon": "오후", // "afternoon" 추가
+    "gone": "사라진/가버린", "last": "지난/마지막의", "night": "밤",
+    "rolled": "굴러갔다", "chest": "상자/가슴", "bed": "침대", // "bed" 추가
+    "taken": "가져간/차지된", "garden": "정원",
+    "while": "～하는 동안/반면에", "safely": "안전하게", "carry": "나르다", "superhero": "슈퍼히어로",
+    "backpack": "배낭", "couldn’t": "～할 수 없었다", "couldnt": "～할 수 없었다",
+    "paper": "종이", "show": "보여주다/쇼",
+    "puppet": "인형", "missing": "사라진/잃어버린/그리워하는",
+    "race": "경주/경주하다",
+    "thunder": "천둥",
+    "loud": "시끄러운/큰 소리로",
+    "lemonade": "레모네이드", "stand": "서다/가판대",
+    "dripping": "물이 떨어지는", "caught": "잡힌/걸린",
+    "cold": "추운/감기",
+    "socks": "양말", "getting": "되는 중/얻는 중", "dry": "마른/말리다",
+    "without": "～없이",
+    "rain": "비/비가 오다",
+    "boots": "장화", "on": "위에/계속",
+    "bringback": "데려오다",
+    "setup": "설치하다",
+    "it’s": "그것은 ~이다", "its": "그것의",
+    "he's": "그는 ~이다", "hes": "그는 ~이다",
+    "she's": "그녀는 ~이다", "shes": "그녀는 ~이다",
+    "you're": "너는 ~이다", "youre": "너는 ~이다",
+    "we're": "우리는 ~이다", "were": "우리는 ~이다/이었다",
+    "they're": "그들은 ~이다", "theyre": "그들은 ~이다",
+    "i'm": "나는 ~이다", "im": "나는 ~이다",
+    "i'll": "나는 ~할 것이다", "ill": "나는 ~할 것이다/아픈",
+    "you'll": "너는 ~할 것이다", "youll": "너는 ~할 것이다",
+    "he'll": "그는 ~할 것이다", "hell": "그는 ~할 것이다/지옥",
+    "she'll": "그녀는 ~할 것이다", "shell": "그녀는 ~할 것이다/조개껍질",
+    "we'll": "우리는 ~할 것이다", "well": "우리는 ~할 것이다/잘/우물",
+    "they'll": "그들은 ~할 것이다", "theyll": "그들은 ~할 것이다",
+    "i'd": "나는 ~하곤 했다/나는 ~할 것이다", "id": "나는 ~하곤 했다/나는 ~할 것이다",
+    "you'd": "너는 ~하곤 했다/너는 ~할 것이다", "youd": "너는 ~하곤 했다/너는 ~할 것이다",
+    "he'd": "그는 ~하곤 했다/그는 ~할 것이다", "hed": "그는 ~하곤 했다/그는 ~할 것이다",
+    "she'd": "그녀는 ~하곤 했다/그녀는 ~할 것이다", "shed": "그녀는 ~하곤 했다/그녀는 ~할 것이다/헛간",
+    "we'd": "우리는 ~하곤 했다/우리는 ~할 것이다", "wed": "우리는 ~하곤 했다/우리는 ~할 것이다/결혼하다",
+    "they'd": "그들은 ~하곤 했다/그들은 ~할 것이다", "theyd": "그들은 ~하곤 했다/그들은 ~할 것이다",
+    "let's": "～하자", "lets": "～하자/허락하다",
+    "doesn’t": "～하지 않는다", "doesnt": "～하지 않는다",
+    "didn’t": "～하지 않았다", "didnt": "～하지 않았다",
+    "mom’s": "엄마의", "moms": "엄마의",
+    "dad’s": "아빠의", "dads": "아빠의",
+    "grandpa's": "할아버지의", "grandpas": "할아버지의",
+    "wasn’t": "～이 아니었다 (과거)", "wasnt": "～이 아니었다 (과거)",
+    "weren’t": "～들이 아니었다 (과거)", "werent": "～들이 아니었다 (과거)",
+    "hasn’t": "～한 적이 없다 (현재완료)", "hasnt": "～한 적이 없다 (현재완료)",
+    "haven’t": "～한 적이 없다 (현재완료)", "havent": "～한 적이 없다 (현재완료)",
+    "hadn’t": "～한 적이 없었다 (과거완료)", "hadnt": "～한 적이 없었다 (과거완료)",
+    "isn’t": "～이 아니다", "isnt": "～이 아니다",
+    "aren’t": "～들이 아니다", "arent": "～들이 아니다",
+    "dreamed": "꿈꿨다",
+    "dreamt": "꿈꿨다"
   };
+  // =======================================================================
+  // END OF FULLY UPDATED mockTranslations
+  // =======================================================================
 
   if (mockTranslations[cleanedWord]) {
     return mockTranslations[cleanedWord];
@@ -1388,12 +1457,12 @@ function drawCenterSentence() {
         ctx.shadowColor = "rgba(0,0,0,0.6)"; ctx.shadowBlur = 2; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1;
 
         const angleDegrees = 40;
-        const basePadding = 8; 
-        const textOffset = 5;  
+        const basePadding = 8;
+        const textOffset = 5;
 
         const wordCenterX = activeWordTranslation.x + activeWordTranslation.w / 2;
-        const englishWordMiddleY = activeWordTranslation.y; 
-        const englishWordHalfHeight = activeWordTranslation.h / 2; 
+        const englishWordMiddleY = activeWordTranslation.y;
+        const englishWordHalfHeight = activeWordTranslation.h / 2;
 
         let translateX, translateY, angleRad, textAlign, textBaseline, drawX, drawY;
 
@@ -1401,28 +1470,28 @@ function drawCenterSentence() {
             translateX = wordCenterX;
             // Y 위치: 기존 verticalClearanceFirstLine (13) 에서 20px 아래로 이동 요청 반영
             const verticalClearanceFirstLine = 13 - 20; // 즉, -7. 결과적으로 단어 윗면에서 (basePadding(8) + (-7)) = 1px 위가 회전 중심 Y.
-            translateY = englishWordMiddleY - englishWordHalfHeight - basePadding - verticalClearanceFirstLine; 
-            
+            translateY = englishWordMiddleY - englishWordHalfHeight - basePadding - verticalClearanceFirstLine;
+
             angleRad = -angleDegrees * Math.PI / 180; // 우상향 (-40도)
 
-            textAlign = 'left';   
+            textAlign = 'left';
             textBaseline = 'bottom';
-            drawX = textOffset;     
+            drawX = textOffset;
             drawY = -textOffset;        } else { // 아래쪽 줄 단어: 좌하향 40도 ("//" 모양), 글자 정상
             translateX = wordCenterX;
 
             // Y 위치: 단어의 아랫면에서 간격을 두고 회전 기준점 설정 (사용자 요청 30px 위로 이동 반영)
             // verticalClearanceSecondLine (이전 30) 에서 30px 위로 -> 0
             const verticalClearanceSecondLine = 20 + 10 - 30; // 즉, 총 0px의 추가 간격 (basePadding만 남음)
-            translateY = englishWordMiddleY + englishWordHalfHeight + basePadding + verticalClearanceSecondLine; 
-            
+            translateY = englishWordMiddleY + englishWordHalfHeight + basePadding + verticalClearanceSecondLine;
+
             angleRad = -angleDegrees * Math.PI / 180; // 우상향과 동일한 각도 (-40도)로 회전
 
             textAlign = 'right';  // 텍스트의 오른쪽 끝을 기준으로 그림
             textBaseline = 'bottom'; // 텍스트의 아래쪽을 기준으로 그림
-            
+
             // X축 위치 조정: 첫 번째 문장과 두 번째 문장의 두 번째 줄 모두 오른쪽으로 5px 이동
-            drawX = -textOffset + 5; 
+            drawX = -textOffset + 5;
             drawY = textOffset;
         }
 
@@ -1473,20 +1542,20 @@ function startFireworks(sentenceTextForFireworks, globalSentenceIndex, explosion
     } else { // Answer
         if (currentQuestionSentence && currentQuestionSentenceIndex === globalSentenceIndex - 1) {
             questionTextForLayout = (currentQuestionSentence.line1 + " " + currentQuestionSentence.line2).trim();
-        } else if (globalSentenceIndex > 0 && sentences[globalSentenceIndex - 1]) { 
+        } else if (globalSentenceIndex > 0 && sentences[globalSentenceIndex - 1]) {
             questionTextForLayout = sentences[globalSentenceIndex - 1];
-        } else { 
-            questionTextForLayout = " "; 
+        } else {
+            questionTextForLayout = " ";
         }
         currentAnswerSentence = null; currentAnswerSentenceIndex = null;
-        showPlayButton = false; 
+        showPlayButton = false;
         showTranslationForAnswer = false;
     }
 
     if (activeWordTranslation)
     activeWordTranslation = null;
     if (wordTranslationTimeoutId)
-    centerSentenceWordRects = []; 
+    centerSentenceWordRects = [];
 
     const [fireworkLine1, fireworkLine2] = splitSentence(sentenceTextForFireworks, isNewSentenceQuestion);
     const wordsForFireworks = [];
@@ -1494,7 +1563,7 @@ function startFireworks(sentenceTextForFireworks, globalSentenceIndex, explosion
     if (fireworkLine2.trim()) wordsForFireworks.push(...fireworkLine2.split(" ").map(word => ({ word, row: 1 })));
 
     if(wordsForFireworks.length === 0) {
-        sentenceActive = false; return; 
+        sentenceActive = false; return;
     }
 
     const baseRadius = 51.2 * 0.88; const maxRadius = 120.96 * 0.88 * 0.95; // Adjusted maxRadius
@@ -1514,7 +1583,7 @@ function startFireworks(sentenceTextForFireworks, globalSentenceIndex, explosion
     const mainRenderAreaYCenter = topOffset + (canvas.height - topOffset) / 2;
     const [sL1_fw, sL2_fw] = splitSentence(sentenceTextForFireworks, isNewSentenceQuestion);
     const sLines_fw = [sL1_fw, sL2_fw].filter(l => l && l.trim());
-    const sentenceBlockFinalHeight_fw = sLines_fw.length * LINE_HEIGHT + (sLines_fw.length === 2 && isNewSentenceQuestion ? -10 : (sLines_fw.length === 2 && !isNewSentenceQuestion ? 10 : 0)); 
+    const sentenceBlockFinalHeight_fw = sLines_fw.length * LINE_HEIGHT + (sLines_fw.length === 2 && isNewSentenceQuestion ? -10 : (sLines_fw.length === 2 && !isNewSentenceQuestion ? 10 : 0));
 
 
     for (let j = 0; j < wordsForFireworks.length; j++) {
@@ -1525,32 +1594,32 @@ function startFireworks(sentenceTextForFireworks, globalSentenceIndex, explosion
         if (roleOfNewSentence === 'question') {
             const qBlockFinalCenterY = mainRenderAreaYCenter + SENTENCE_VERTICAL_ADJUSTMENT;
             wordTargetY = qBlockFinalCenterY - sentenceBlockFinalHeight_fw / 2 + (wordsForFireworks[j].row * LINE_HEIGHT) + (LINE_HEIGHT / 2);
-            if (wordsForFireworks[j].row === 0) wordTargetY -= 10; 
+            if (wordsForFireworks[j].row === 0) wordTargetY -= 10;
         } else { // Answer
             const [qTextL1_layout, qTextL2_layout] = splitSentence(questionTextForLayout, true);
             const qTextLines_layout = [qTextL1_layout, qTextL2_layout].filter(l => l && l.trim());
             let questionBlockActualHeight_layout = qTextLines_layout.length * LINE_HEIGHT;
-            if(qTextLines_layout.length === 1) questionBlockActualHeight_layout -=10; 
-            
+            if(qTextLines_layout.length === 1) questionBlockActualHeight_layout -=10;
+
             const questionBlockActualCenterY_layout = mainRenderAreaYCenter + SENTENCE_VERTICAL_ADJUSTMENT;
             let questionBlockActualBottomY_layout = questionBlockActualCenterY_layout + questionBlockActualHeight_layout / 2;
-             if (qTextLines_layout.length === 1) { 
+             if (qTextLines_layout.length === 1) {
                  questionBlockActualBottomY_layout = questionBlockActualCenterY_layout - 10;
              } else if (qTextLines_layout.length === 2){
-                 questionBlockActualBottomY_layout = questionBlockActualCenterY_layout + LINE_HEIGHT - 10; 
-             } else if (qTextLines_layout.length === 0) { 
-                 questionBlockActualBottomY_layout = questionBlockActualCenterY_layout; 
+                 questionBlockActualBottomY_layout = questionBlockActualCenterY_layout + LINE_HEIGHT - 10;
+             } else if (qTextLines_layout.length === 0) {
+                 questionBlockActualBottomY_layout = questionBlockActualCenterY_layout;
              }
 
 
             let answerBlockFinalTopY_fw;
             if (qTextLines_layout.length > 0) {
                 answerBlockFinalTopY_fw = questionBlockActualBottomY_layout + ANSWER_OFFSET_Y;
-            } else { 
+            } else {
                 answerBlockFinalTopY_fw = questionBlockActualCenterY_layout - sentenceBlockFinalHeight_fw / 2;
             }
             wordTargetY = answerBlockFinalTopY_fw + (wordsForFireworks[j].row * LINE_HEIGHT) + (LINE_HEIGHT / 2);
-            if (wordsForFireworks[j].row === 1) wordTargetY += 10; 
+            if (wordsForFireworks[j].row === 1) wordTargetY += 10;
         }
 
 
@@ -1559,7 +1628,7 @@ function startFireworks(sentenceTextForFireworks, globalSentenceIndex, explosion
             x: centerX, y: explosionY,
             radius: baseRadius, maxRadius: maxRadius,
             color: color,
-            targetX: 0, 
+            targetX: 0,
             targetY: wordTargetY,
         });
     }
@@ -1584,13 +1653,13 @@ function updateFireworks() {
   } else if (fireworksState.phase === "hold") {
     if (fireworksState.t >= fireworksState.holdDuration) {
       fireworksState.phase = "gather"; fireworksState.t = 0;
-      centerAlpha = 0; 
+      centerAlpha = 0;
     }
   } else if (fireworksState.phase === "gather") {
     const progress = Math.min(fireworksState.t / fireworksState.gatherDuration, 1);
-    const ease = Math.pow(progress, 2); 
-    const tempCtx = canvas.getContext('2d'); 
-    tempCtx.font = englishFont; 
+    const ease = Math.pow(progress, 2);
+    const tempCtx = canvas.getContext('2d');
+    tempCtx.font = englishFont;
     const isGatherSentenceQuestion = fireworksState.roleOfNewSentence === 'question';
     const [sentenceLine1Gather, sentenceLine2Gather] = splitSentence(fireworksState.sentenceTextToDisplayAfter, isGatherSentenceQuestion);
     let sentenceLineWordArrays = [];
@@ -1611,7 +1680,7 @@ function updateFireworks() {
                 currentLineTotalWidth += adjustedSpaceWidthFireworks;
             }
         }
-        let currentXTargetForWord = (canvas.width - currentLineTotalWidth) / 2; 
+        let currentXTargetForWord = (canvas.width - currentLineTotalWidth) / 2;
         for (let j = 0; j < wordsInLine.length; j++) {
             if (fireworks[wordIndexInFireworks]) {
                 fireworks[wordIndexInFireworks].targetX = currentXTargetForWord;
@@ -1625,10 +1694,10 @@ function updateFireworks() {
     }
 
     fireworks.forEach((fw) => {
-      fw.x += (fw.targetX - fw.x) * ease * 0.2; 
-      fw.y += (fw.targetY - fw.y) * ease * 0.2; 
+      fw.x += (fw.targetX - fw.x) * ease * 0.2;
+      fw.y += (fw.targetY - fw.y) * ease * 0.2;
     });
-    centerAlpha += (1.0 - centerAlpha) * ease * 0.15; 
+    centerAlpha += (1.0 - centerAlpha) * ease * 0.15;
 
     if (progress >= 1) {
         fireworksState.phase = "done";
@@ -1643,7 +1712,7 @@ function updateFireworks() {
         if (roleOfNewSentence === 'question') {
             currentQuestionSentence = newSentenceObject; currentQuestionSentenceIndex = newSentenceIndex;
             currentAnswerSentence = null; currentAnswerSentenceIndex = null;
-            showPlayButton = false; showPlayButtonQuestion = true; 
+            showPlayButton = false; showPlayButtonQuestion = true;
             playAudioForThisSentence = true;
         } else { // Answer
             const questionIndexOfThisAnswer = newSentenceIndex - 1;
@@ -1653,18 +1722,18 @@ function updateFireworks() {
                     currentQuestionSentence = {line1: qL1, line2: qL2};
                     currentQuestionSentenceIndex = questionIndexOfThisAnswer;
                 }
-                 showPlayButtonQuestion = true; 
-            } else { 
+                 showPlayButtonQuestion = true;
+            } else {
                 currentQuestionSentence = null; currentQuestionSentenceIndex = null;
                 showPlayButtonQuestion = false;
             }
             currentAnswerSentence = newSentenceObject; currentAnswerSentenceIndex = newSentenceIndex;
-            showPlayButton = true; 
+            showPlayButton = true;
             playAudioForThisSentence = true;
         }
         centerAlpha = 1.0;
         fireworks = null; fireworksState = null; sentenceActive = false;
-        if (activeWordTranslation) activeWordTranslation.show = false; 
+        if (activeWordTranslation) activeWordTranslation.show = false;
         activeWordTranslation = null; if (wordTranslationTimeoutId) clearTimeout(wordTranslationTimeoutId);
 
         if (playAudioForThisSentence) {
@@ -1681,17 +1750,17 @@ function updateFireworks() {
                 sentenceObjectForAnimation = currentAnswerSentence;
                 isQuestionForAnimation = false;
             }
-            
+
             if (audioIndexToPlay !== null && sentenceObjectForAnimation) {
-                setTimeout(() => { 
-                    window.speechSynthesis.cancel(); 
+                setTimeout(() => {
+                    window.speechSynthesis.cancel();
                     playSentenceAudio(audioIndexToPlay)
                         .then(() => {
                             triggerSentenceWordAnimation(
-                                sentenceObjectForAnimation, 
-                                isQuestionForAnimation, 
+                                sentenceObjectForAnimation,
+                                isQuestionForAnimation,
                                 centerSentenceWordRects,
-                                ctx, 
+                                ctx,
                                 300
                             );
                         })
@@ -1730,19 +1799,19 @@ function spawnEnemy() {
     enemy.swayAmplitude = Math.random() * 10 + 5;
     const petal = {
         x: enemy.x + enemy.w / 2 - PETAL_SIZE / 2, y: enemy.y + enemy.h / 2,
-        w: PETAL_SIZE, h: PETAL_SIZE, img: enemyImgs[2], 
-        baseY: enemy.y + enemy.h / 2, 
+        w: PETAL_SIZE, h: PETAL_SIZE, img: enemyImgs[2],
+        baseY: enemy.y + enemy.h / 2,
         initialX: enemy.x + enemy.w / 2 - PETAL_SIZE / 2,
         rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * PETAL_ROTATION_SPEED_BASE * 2 + (Math.random() > 0.5 ? 0.3 : -0.3), 
+        rotationSpeed: (Math.random() - 0.5) * PETAL_ROTATION_SPEED_BASE * 2 + (Math.random() > 0.5 ? 0.3 : -0.3),
         swayAngle: Math.random() * Math.PI * 2,
-        swaySpeed: (Math.random() * 0.5 + 0.75) * PETAL_SWAY_SPEED_BASE * (Math.random() > 0.5 ? 1 : -1), 
-        swayAmplitude: Math.random() * (PETAL_SWAY_AMPLITUDE_BASE * 0.6) + (PETAL_SWAY_AMPLITUDE_BASE * 0.7), 
-        driftXPerSecond: (Math.random() - 0.5) * PETAL_DRIFT_X_PPS_BASE * 1.5, 
+        swaySpeed: (Math.random() * 0.5 + 0.75) * PETAL_SWAY_SPEED_BASE * (Math.random() > 0.5 ? 1 : -1),
+        swayAmplitude: Math.random() * (PETAL_SWAY_AMPLITUDE_BASE * 0.6) + (PETAL_SWAY_AMPLITUDE_BASE * 0.7),
+        driftXPerSecond: (Math.random() - 0.5) * PETAL_DRIFT_X_PPS_BASE * 1.5,
         flutterAngle: Math.random() * Math.PI * 2,
-        flutterSpeed: (Math.random() * 0.8 + 0.6) * PETAL_FLUTTER_SPEED_BASE, 
-        flutterAmplitude: Math.random() * (PETAL_FLUTTER_AMPLITUDE_BASE * 0.5) + (PETAL_FLUTTER_AMPLITUDE_BASE * 0.5), 
-        fallSpeedPPS: PETAL_FALL_SPEED_PPS * (Math.random() * 0.4 + 0.8) 
+        flutterSpeed: (Math.random() * 0.8 + 0.6) * PETAL_FLUTTER_SPEED_BASE,
+        flutterAmplitude: Math.random() * (PETAL_FLUTTER_AMPLITUDE_BASE * 0.5) + (PETAL_FLUTTER_AMPLITUDE_BASE * 0.5),
+        fallSpeedPPS: PETAL_FALL_SPEED_PPS * (Math.random() * 0.4 + 0.8)
     };
     detachedPetals.push(petal);
   }
