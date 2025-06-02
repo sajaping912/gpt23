@@ -1408,8 +1408,7 @@ function drawCenterSentence() {
             textAlign = 'left';   
             textBaseline = 'bottom';
             drawX = textOffset;     
-            drawY = -textOffset;    
-        } else { // 아래쪽 줄 단어: 좌하향 40도 ("//" 모양), 글자 정상
+            drawY = -textOffset;        } else { // 아래쪽 줄 단어: 좌하향 40도 ("//" 모양), 글자 정상
             translateX = wordCenterX;
 
             // Y 위치: 단어의 아랫면에서 간격을 두고 회전 기준점 설정 (사용자 요청 30px 위로 이동 반영)
@@ -1422,8 +1421,9 @@ function drawCenterSentence() {
             textAlign = 'right';  // 텍스트의 오른쪽 끝을 기준으로 그림
             textBaseline = 'bottom'; // 텍스트의 아래쪽을 기준으로 그림
             
-            drawX = -textOffset; 
-            drawY = textOffset; 
+            // X축 위치 조정: 첫 번째 문장과 두 번째 문장의 두 번째 줄 모두 오른쪽으로 5px 이동
+            drawX = -textOffset + 5; 
+            drawY = textOffset;
         }
 
         ctx.translate(translateX, translateY);
